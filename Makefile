@@ -1,4 +1,4 @@
-GCC := gcc -Wall -Wextra -Werror
+GCC := gcc -Wall -Wextra -Werror -g3 
 OBJECT := srcs/rush.o
 FILE := rush
 
