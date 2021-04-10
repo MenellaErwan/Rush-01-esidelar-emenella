@@ -28,11 +28,13 @@ int main()
     }
     
     // print_element(element, SIZE * SIZE);
+    sort_element_by_y(element, SIZE * SIZE);
+    sort_element_by_x(element, SIZE * SIZE);
     sort_element(element, SIZE * SIZE);
-    // sort_y_element(element, SIZE * SIZE);
-    // sort_x_element(element, SIZE * SIZE);
     print_element(element, SIZE * SIZE);
-
+    i = -1;
+    while(++i < 5)
+    printf("%d=%d\n", i, maxsize(element, SIZE * SIZE, i));
 
     return (0);
 }
@@ -61,12 +63,39 @@ void   sort_element(t_pos *element[], int n)
     }
 }
 
+void   sort_element_by_x(t_pos *element[], int n)
+{
+    int i = -1;
+    int j = -1;
+
+    while (++i < n - 1)
+    {
+        while(++j < n - i - 1)
+            if ((*element[j]).x > (*element[j + 1]).x)
+                swap((void *)&element[j], (void *)&element[j + 1]);
+        j = -1;
+    }
+}
+
+void   sort_element_by_y(t_pos *element[], int n)
+{
+    int i = -1;
+    int j = -1;
+
+    while (++i < n - 1)
+    {
+        while(++j < n - i - 1)
+            if ((*element[j]).y > (*element[j + 1]).y)
+                swap((void *)&element[j], (void *)&element[j + 1]);
+        j = -1;
+    }
+}
+
 void print_element(t_pos *element[], int n)
 {
     int i = -1;
 
     while (++i < n)
-        if ((*element[i]).height == 2)
             printf("Height: %d; Y: %d; X: %d\n", (*element[i]).height, (*element[i]).y, (*element[i]).x);
 }
 
@@ -80,4 +109,66 @@ t_pos   *init_pos(int x, int y, int height)
         pos->height = height;
     }
     return (pos);
+}
+
+int len_by_height(t_pos *element[], int n, int height)
+{
+    int i;
+    int j;
+
+    i = -1;
+    j = 0;
+    while (++i < n)
+        if ((*element[i]).height == height)
+            j++;
+    return (j);
+}
+
+int floorSqrt(int x)
+{
+    if (x == 0 || x == 1)
+    return x;
+ 
+    int i = 1, result = 1;
+    while (result <= x)
+    {
+      i++;
+      result = i * i;
+    }
+    return i - 1;
+}
+
+int maxsize(t_pos *element[], int n, int height)
+{
+    int max;
+    int tmp;
+
+    max = floorSqrt(len_by_height(element, n, height));
+    tmp = maxcol(element, n, height);
+    if (tmp < max)
+        max = tmp;
+    return(max);
+}
+
+int maxcol(t_pos *element[], int n, int height)
+{
+    int i;
+    int max;
+    int tmp;
+
+    i = -1;
+    max = 0;
+    tmp = 0;
+    while (++i < n - 1 && (*element[i]).height != height);
+    while (i < n - 1 && (*element[i]).height == height)
+    {
+        if((*element[i]).y < (*element[i + 1]).y)
+            tmp++;
+        else
+            tmp = 0;
+        if (max < tmp)
+            max = tmp;
+        i++;
+    }
+    return (max + 1);
 }
