@@ -8,8 +8,8 @@ int main()
                             {0,0,0,0,0,1,1,1,2,2,2,2},
                             {0,1,1,1,1,1,1,2,2,2,2,2},
                             {0,2,2,2,2,2,2,2,2,2,2,2},
-                            {0,3,3,3,3,3,3,3,3,3,3,3},
                             {0,2,2,2,2,2,2,2,2,2,2,2},
+                            {0,3,3,3,3,3,3,3,3,3,3,3},
                             {0,3,3,3,3,3,3,3,3,3,3,3},
                             {0,3,3,3,3,3,3,3,3,3,3,3},
                             {0,4,4,4,4,4,4,4,4,4,4,4},
@@ -20,7 +20,7 @@ int main()
     int y = -1;
     int x = -1;
     int i = 0;
-    while (++y < SIZE )
+    while (++y < SIZE)
     { 
         while (++x < SIZE)
             element[i++] = init_pos(x, y, map[y][x]);
@@ -66,7 +66,8 @@ void print_element(t_pos *element[], int n)
     int i = -1;
 
     while (++i < n)
-        printf("Height: %d; Y: %d; X: %d\n", (*element[i]).height, (*element[i]).y, (*element[i]).x);
+        if ((*element[i]).height == 2)
+            printf("Height: %d; Y: %d; X: %d\n", (*element[i]).height, (*element[i]).y, (*element[i]).x);
 }
 
 t_pos   *init_pos(int x, int y, int height)

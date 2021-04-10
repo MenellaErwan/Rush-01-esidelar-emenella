@@ -1,4 +1,4 @@
-GCC := gcc -Wall -Wextra -Werror -g3 
+GCC := gcc -Wall -Wextra -Werror -g3 -fsanitize=address
 OBJECT := srcs/rush.o
 FILE := rush
 
