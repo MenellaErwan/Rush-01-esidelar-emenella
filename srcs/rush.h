@@ -20,6 +20,7 @@ int     len_by_height(t_pos *element[], int n, int height);
 void    sort_element_by_x(t_pos *element[], int n);
 void    sort_element_by_y(t_pos *element[], int n);
 int     floorSqrt(int x);
+int     maxline(t_pos *element[], int n, int height);
 int     maxsize(t_pos *element[], int n, int height);
 int     maxcol(t_pos *element[], int n, int height);
 #endif

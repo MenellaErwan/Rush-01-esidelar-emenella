@@ -28,10 +28,6 @@ int main()
     }
     
     // print_element(element, SIZE * SIZE);
-    sort_element_by_y(element, SIZE * SIZE);
-    sort_element_by_x(element, SIZE * SIZE);
-    sort_element(element, SIZE * SIZE);
-    print_element(element, SIZE * SIZE);
     i = -1;
     while(++i < 5)
     printf("%d=%d\n", i, maxsize(element, SIZE * SIZE, i));
@@ -143,8 +139,17 @@ int maxsize(t_pos *element[], int n, int height)
     int max;
     int tmp;
 
+    sort_element_by_y(element, SIZE * SIZE);
+    sort_element_by_x(element, SIZE * SIZE);
+    sort_element(element, SIZE * SIZE);
     max = floorSqrt(len_by_height(element, n, height));
     tmp = maxcol(element, n, height);
+    if (tmp < max)
+        max = tmp;
+    sort_element_by_x(element, SIZE * SIZE);
+    sort_element_by_y(element, SIZE * SIZE);
+    sort_element(element, SIZE * SIZE);
+    tmp = maxline(element, n, height);
     if (tmp < max)
         max = tmp;
     return(max);
@@ -163,6 +168,29 @@ int maxcol(t_pos *element[], int n, int height)
     while (i < n - 1 && (*element[i]).height == height)
     {
         if((*element[i]).y < (*element[i + 1]).y)
+            tmp++;
+        else
+            tmp = 0;
+        if (max < tmp)
+            max = tmp;
+        i++;
+    }
+    return (max + 1);
+}
+
+int maxline(t_pos *element[], int n, int height)
+{
+    int i;
+    int max;
+    int tmp;
+
+    i = -1;
+    max = 0;
+    tmp = 0;
+    while (++i < n - 1 && (*element[i]).height != height);
+    while (i < n - 1 && (*element[i]).height == height)
+    {
+        if((*element[i]).x < (*element[i + 1]).x)
             tmp++;
         else
             tmp = 0;
