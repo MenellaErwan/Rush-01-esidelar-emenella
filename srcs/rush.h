@@ -12,7 +12,6 @@ typedef struct  s_pos
 	int height;
 }				t_pos;
 
-void	swap (int *x, int *y);
 void	sort_element_by_height(t_pos *element[], int n);
 t_pos	*init_pos(int x, int y, int height);
 void	print_element(t_pos *element[], int n);
