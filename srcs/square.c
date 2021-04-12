@@ -15,15 +15,20 @@ void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int 
 		array[i][1] = i;
 		i--;
 	}
+	i = 1;
 	sort_array(array, high + 1);
-	i = -1;
-	while(++i < (*element_sort_by_x[0]).height + 1)
+	while(i)
 	{
 		pos = find_big_square(element_sort_by_x, n * n, array[i][1], array[i][0]);
 		if (pos)
 		{
 			ft_affiche(pos, array[i][0], n, element_sort_by_y, c);
-			break ;
+			i--;
+		}
+		else
+		{
+			array[i][0]--;
+			sort_array(array, high + 1);
 		}
 	}
 }
