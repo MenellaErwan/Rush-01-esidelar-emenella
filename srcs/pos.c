@@ -7,20 +7,25 @@ int maxline(t_pos *element[], int n, int height)
 	int tmp;
 
 	i = -1;
-	max = 1;
-	tmp = 1;
+	max = 0;
+	tmp = 0;
 	while (++i < n - 1 && (*element[i]).height != height);
-	while (i < n - 1 && (*element[i]).height == height)
+	while (i < n - 1)
 	{
-		if((*element[i]).x < (*element[i + 1]).x)
-			tmp++;
+		if ((*element[i]).height == height)
+		{
+			if((*element[i]).x < (*element[i + 1]).x)
+				tmp++;
+			else
+				tmp = 0;
+			if (max < tmp)
+				max = tmp;
+		}
 		else
-			tmp = 1;
-		if (max < tmp)
-			max = tmp;
+			tmp = 0;
 		i++;
 	}
-	return (max);
+	return (max + 1);
 }
 
 void *ft_memcpy (void *dest, const void *src, size_t len)
@@ -37,7 +42,7 @@ void ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void ft_affiche(t_pos *pos, int size, int n, t_pos *element[])
+void ft_affiche(t_pos *pos, int size, int n, t_pos *element[], char c)
 {
 	int y;
 	int x;
@@ -53,12 +58,12 @@ void ft_affiche(t_pos *pos, int size, int n, t_pos *element[])
 		while (++x < n)
 		{
 			if (x >= pos->x && x < pos->x + size && y >= pos->y && y < pos->y + size)
-				ft_putchar('x');
+				ft_putchar(c);
 			else
 				ft_putchar((*element[i]).height + 48);
 			i++;
 		}
 		x = -1;
-		write(1, "\n", 1);
+		ft_putchar('\n');
 	}
 }

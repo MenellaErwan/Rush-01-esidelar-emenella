@@ -26,9 +26,9 @@ int		maxcol(t_pos *element[], int n, int height);
 t_pos	*verif_square(t_pos *element[], int n, int size, int it);
 t_pos	*find_big_square(t_pos *element[], int n, int height, int size);
 void	sort_array(int element[][2], int n);
-void	search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, int high);
+void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, char c);
 void	*ft_memcpy (void *dest, const void *src, size_t len);
 void	ft_free_element(t_pos *element[], int n);
-int		ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[]);
-void ft_affiche(t_pos *pos, int size, int n, t_pos *element[]);
+int		ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], char c);
+void ft_affiche(t_pos *pos, int size, int n, t_pos *element[], char c);
 #endif

@@ -1,6 +1,6 @@
 #include "rush.h"
 
-int	ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[])
+int	ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], char c)
 {
 	sort_element_by_y(element_sort_by_x, size * size);
 	sort_element_by_x(element_sort_by_x, size * size);
@@ -8,7 +8,7 @@ int	ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[]
 	sort_element_by_x(element_sort_by_y, size * size);
 	sort_element_by_y(element_sort_by_y, size * size);
 	sort_element_by_height(element_sort_by_y, size * size);
-	search_square(element_sort_by_x, element_sort_by_y, size, (*element_sort_by_x[0]).height);
+	search_square(element_sort_by_x, element_sort_by_y, size, c);
 	ft_free_element(element_sort_by_x, size * size);
 	return (0);
 }

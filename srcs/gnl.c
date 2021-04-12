@@ -58,11 +58,10 @@ static uint_fast32_t param(uint_fast8_t convert)
     unsigned char	p;
     unsigned char	save[32UL];
 
-    ret = 0;
+    ret = 1;
     p = 0;
-    while ((ret = read(0, save + p, 1UL)) > 0L
-    	&& (*(save + p) != '\n'))
-        ++p;
+    while ((ret = read(0, save + p, 1UL)) > 0L && (*(save + p) != '\n'))
+		++p;
 	if (convert)
 		return (ft_atoi(save));
 	else
@@ -82,7 +81,7 @@ int		get_next_line(unsigned char **str, uint_fast32_t n)
 	while (++i < n && ret)
 	{
 		ret = read(0, result, n * n);
-		if (ret < 0)
+		if (!ret)
 		{
 			free(*str);
 			return (1);
@@ -94,7 +93,7 @@ int		get_next_line(unsigned char **str, uint_fast32_t n)
 	return (0);
 }
 
-void ft_str_to_map(unsigned char *str, uint_fast64_t size)
+void ft_str_to_map(unsigned char *str, uint_fast64_t size, char c)
 {
 	t_pos	*element_sort_by_x[size * size];
 	t_pos	*element_sort_by_y[size * size];
@@ -113,7 +112,7 @@ void ft_str_to_map(unsigned char *str, uint_fast64_t size)
 		x = -1;
 	}
 
-	ft_resolve(size, element_sort_by_x, element_sort_by_y);
+	ft_resolve(size, element_sort_by_x, element_sort_by_y, c);
 }
 
 int main()
@@ -121,13 +120,11 @@ int main()
 	unsigned char	*str = NULL;
 	uint_fast8_t	para;
 	int	chara;
-	int	i;
 
 	para = param(1);
 	chara = param(0);
-	i = 0;
 	if (get_next_line(&str, para))
 		return (0);
-	ft_str_to_map(str, para);
+	ft_str_to_map(str, para, chara);
 	free(str);
 }
