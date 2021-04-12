@@ -9,7 +9,7 @@ void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int 
 	i = high;
 	while(i >= 0)
 	{
-		array[i][0] = maxsize(element_sort_by_x, element_sort_by_y, n, i);
+		array[i][0] = maxsize(element_sort_by_x, element_sort_by_y, n * n, i);
 		array[i][1] = i;
 		i--;
 	}
@@ -17,16 +17,16 @@ void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int 
 	i = -1;
 	while(++i < high + 1)
 	{
-		pos = find_big_square(element_sort_by_x, n, array[i][1], array[i][0]);
+		pos = find_big_square(element_sort_by_x, n * n, array[i][1], array[i][0]);
 		if (pos)
 		{
-			// affiche(pos, i);
+			ft_affiche(pos, array[i][0], n, element_sort_by_y);
 			break ;
 		}
 	}
 }
 
-void *find_big_square(t_pos *element[], int n, int height, int size)
+t_pos *find_big_square(t_pos *element[], int n, int height, int size)
 {
 	int i;
 	int tmp;
@@ -47,7 +47,7 @@ void *find_big_square(t_pos *element[], int n, int height, int size)
 	return(verif_square(element, n, size, i - size + 1));
 }
 
-void *verif_square(t_pos *element[], int n, int size, int it)
+t_pos *verif_square(t_pos *element[], int n, int size, int it)
 {
 	int i;
 	int j;

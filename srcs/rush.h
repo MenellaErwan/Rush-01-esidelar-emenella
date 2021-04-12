@@ -1,6 +1,7 @@
 #ifndef RUSH_H
 # define RUSH_H
 # include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 # include <stdint.h>
@@ -22,10 +23,12 @@ int		floorSqrt(int x);
 int		maxline(t_pos *element[], int n, int height);
 int		maxsize(t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, int height);
 int		maxcol(t_pos *element[], int n, int height);
-void	*verif_square(t_pos *element[], int n, int size, int it);
-void	*find_big_square(t_pos *element[], int n, int height, int size);
+t_pos	*verif_square(t_pos *element[], int n, int size, int it);
+t_pos	*find_big_square(t_pos *element[], int n, int height, int size);
 void	sort_array(int element[][2], int n);
 void	search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, int high);
 void	*ft_memcpy (void *dest, const void *src, size_t len);
 void	ft_free_element(t_pos *element[], int n);
+int		ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[]);
+void ft_affiche(t_pos *pos, int size, int n, t_pos *element[]);
 #endif

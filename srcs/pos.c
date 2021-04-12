@@ -31,3 +31,34 @@ void *ft_memcpy (void *dest, const void *src, size_t len)
 	*d++ = *s++;
   return dest;
 }
+
+void ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void ft_affiche(t_pos *pos, int size, int n, t_pos *element[])
+{
+	int y;
+	int x;
+	int i;
+
+	y = -1;
+	x = -1;
+	i = 0;
+	sort_element_by_x(element, n * n);
+	sort_element_by_y(element, n * n);
+	while (++y < n)
+	{
+		while (++x < n)
+		{
+			if (x >= pos->x && x < pos->x + size && y >= pos->y && y < pos->y + size)
+				ft_putchar('x');
+			else
+				ft_putchar((*element[i]).height + 48);
+			i++;
+		}
+		x = -1;
+		write(1, "\n", 1);
+	}
+}
