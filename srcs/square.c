@@ -4,16 +4,18 @@ void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int 
 {
 	int array[(*element_sort_by_x[0]).height + 1][2];
 	int i;
+	int high;
 	t_pos *pos;
 
-	i = (*element_sort_by_x[0]).height;
+	high = (*element_sort_by_x[0]).height;
+	i = high;
 	while(i >= 0)
 	{
 		array[i][0] = maxsize(element_sort_by_x, element_sort_by_y, n * n, i);
 		array[i][1] = i;
 		i--;
 	}
-	sort_array(array, (*element_sort_by_x[0]).height + 1);
+	sort_array(array, high + 1);
 	i = -1;
 	while(++i < (*element_sort_by_x[0]).height + 1)
 	{
