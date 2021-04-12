@@ -51,6 +51,7 @@ void ft_affiche(t_pos *pos, int size, int n, t_pos *element[], char c)
 	y = -1;
 	x = -1;
 	i = 0;
+	printf("Carr2\n");
 	sort_element_by_x(element, n * n);
 	sort_element_by_y(element, n * n);
 	while (++y < n)
