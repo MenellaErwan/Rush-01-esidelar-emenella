@@ -6,29 +6,17 @@
 # include <string.h>
 # include <stdint.h>
 
-typedef struct  s_pos
+typedef struct  s_map
 {
-	int x;
-	int y;
-	int height;
-}				t_pos;
+	char **map;
+	int 	size;
+}				t_map;
 
-void	sort_element_by_height(t_pos *element[], int n);
-t_pos	*init_pos(int x, int y, int height);
-void	print_element(t_pos *element[], int n);
-int		len_by_height(t_pos *element[], int n, int height);
-void	sort_element_by_x(t_pos *element[], int n);
-void	sort_element_by_y(t_pos *element[], int n);
-int		floorSqrt(int x);
-int		maxline(t_pos *element[], int n, int height);
-int		maxsize(t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, int height);
-int		maxcol(t_pos *element[], int n, int height);
-t_pos	*verif_square(t_pos *element[], int n, int size, int it);
-t_pos	*find_big_square(t_pos *element[], int n, int height, int size);
-void	sort_array(int element[][2], int n);
-void search_square (t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], int n, char c);
-void	*ft_memcpy (void *dest, const void *src, size_t len);
-void	ft_free_element(t_pos *element[], int n);
-int		ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], char c);
-void ft_affiche(t_pos *pos, int size, int n, t_pos *element[], char c);
+void	affiche_square(t_map *map, int size, int x, int y, char c);
+int	ft_valide_square(t_map *map, int size, int x, int y);
+t_map	*ft_init_map(char **str, int size);
+void	ft_resolve(char **map, int size, char c);
+
+
+
 #endif

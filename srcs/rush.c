@@ -1,63 +1,88 @@
 #include "rush.h"
 
-int	ft_resolve(int size,  t_pos *element_sort_by_x[], t_pos *element_sort_by_y[], char c)
+void	ft_resolve(char **str, int size, char c)
 {
-	sort_element_by_y(element_sort_by_x, size * size);
-	sort_element_by_x(element_sort_by_x, size * size);
-	sort_element_by_height(element_sort_by_x, size * size);
-	sort_element_by_x(element_sort_by_y, size * size);
-	sort_element_by_y(element_sort_by_y, size * size);
-	sort_element_by_height(element_sort_by_y, size * size);
-	search_square(element_sort_by_x, element_sort_by_y, size, c);
-	ft_free_element(element_sort_by_x, size * size);
-	return (0);
+	int y;
+	int x;
+	int i;
+	t_map *map;
+
+	y = -1;
+	x = -1;
+	i = size;
+	map = ft_init_map(str, size);
+	while (i)
+	{
+		while (++y < size)
+		{
+			while (++x < size)
+				if (ft_valide_square(map, i, x, y))
+				{
+					affiche_square(map, i, x, y, c);
+					return ;
+				}
+			x = -1;
+		}
+		y = -1;
+		i--;
+	}
 }
 
-void	ft_free_element(t_pos *element[], int n)
+t_map *ft_init_map(char **str, int size)
 {
+	t_map *map;
+
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
+	map->map = str;
+	map->size = size;
+	return (map);
+}
+
+int	ft_valide_square(t_map *map, int size, int x, int y)
+{
+	char c;
 	int i;
 
-	i = -1;
-	while (++i < n)
-		free(element[i]);
-}
-
-t_pos   *init_pos(int x, int y, int height)
-{
-	t_pos *pos = malloc(sizeof(t_pos));
-	if (pos) 
+	i = x;
+	c = map->map[y][x];
+	printf("depart %d\n", size);
+	if (x + size > map->size || y + size > map->size)
+		return (0);
+	while (y < size + y)
 	{
-		pos->x = x;
-		pos->y = y;
-		pos->height = height;
+		while (x < size + x)
+		{
+			if (c != map->map[y][x])
+				return (0);
+			printf("%c == %c et y %d x %d\n", c, map->map[y][x], y, x);
+			x++;
+		}
+		x = i;
+		y++;
 	}
-	return (pos);
+	return (1);
 }
 
-int		len_by_height(t_pos *element[], int n, int height)
+void	affiche_square(t_map *map, int size, int x, int y, char c)
 {
 	int i;
 	int j;
 
 	i = -1;
-	j = 0;
-	while (++i < n)
-		if ((*element[i]).height == height)
-			j++;
-	return (j);
-}
+	j = -1;
 
-int		floorSqrt(int x)
-{
-	if (x == 0 || x == 1)
-	return (x);
- 
-	int i = 1, result = 1;
-	while (result <= x)
+	
+	while (++i < map->size + 1)
 	{
-	  i++;
-	  result = i * i;
+		while (++j < map->size + 1)
+		{
+			if (j >= x && j < x + size && i >= y && i < y + size)
+				write(1, &c, 1);
+			else
+				write(1, &map->map[i][j], 1);
+		}
+		j = -1;
 	}
-	return (i - 1);
 }
-

@@ -1,5 +1,5 @@
 GCC := gcc -Wall -Wextra -Werror -g3 
-OBJECT := srcs/rush.o srcs/sort.o srcs/square.o srcs/pos.o srcs/gnl.o
+OBJECT := srcs/rush.o srcs/gnl.o
 FILE := rush
 
 all: $(FILE)

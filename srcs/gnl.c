@@ -28,7 +28,7 @@ static int param(int convert)
 
     ret = 1;
     p = 0;
-    while ((ret = read(0, save + p, 1UL)) > 0L && (*(save + p) != '\n'))
+    while ((ret = read(0, save + p, 1)) > 0 && (*(save + p) != '\n'))
 		++p;
 	if (convert)
 		return (ft_atoi(save));
@@ -45,55 +45,35 @@ int ft_strlen(char *str)
     return (i);
 }
 
-char *get_map(int size)
+char **get_map(int size)
 {
     int i;
-    char *map;
+    int ret;
+    char **map;
 
-    i = 0;
-    if(!(map = malloc(sizeof(char) * size * size + 1)))
+    i = -1;
+    ret = 1;
+    if(!(map = malloc(sizeof(char*) * (size))))
         return (NULL);
-    map[size * size] = 0;
-    while (i < size * size)
+    while (++i < size && ret > 0)
     {
-        i += read(0, map + i, size + 1);
-        i--;
+        if(!(map[i] = malloc(sizeof(char) * (size + 1))))
+            return (NULL);
+        read(0, map[i], size + 1);
     }
     return (map);
 }
 
-void ft_str_to_map(char *str, uint_fast64_t size, char c)
-{
-	t_pos	*element_sort_by_x[size * size];
-	t_pos	*element_sort_by_y[size * size];
-	uint_fast64_t		y = -1;
-	uint_fast64_t		x = -1;
-	uint_fast64_t		i = 0;
-
-	while (++y < size)
-	{ 
-		while (++x < size)
-		{
-			element_sort_by_x[i] = init_pos(x, y, str[i] - 48);
-			element_sort_by_y[i] = element_sort_by_x[i];
-			i++;
-		}
-		x = -1;
-	}
-
-	ft_resolve(size, element_sort_by_x, element_sort_by_y, c);
-}
-
 int main()
 {
-	char	*str = NULL;
+	char	**str = NULL;
 	int	    para;
 	int	    chara;
 
 	para = param(1);
 	chara = param(0);
 	str = get_map(para);
-    // printf("%s\n", str);
-	ft_str_to_map(str, para, chara);
+    write(1, "\n", 1);
+	ft_resolve(str, para, chara);
 	free(str);
 }
