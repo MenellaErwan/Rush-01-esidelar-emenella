@@ -1,50 +1,52 @@
 #include "rush.h"
 
-void	ft_resolve(char **str, int size, char c)
+void	ft_resolve(t_map *map, int size)
 {
-	int y;
-	int x;
-	int i;
-	t_map *map;
+	int		y;
+	int		x;
+	int		condition;
 
 	y = -1;
 	x = -1;
-	i = size;
-	map = ft_init_map(str, size);
-	while (i)
+	condition = 0;
+	while (size)
 	{
-		while (++y < size)
+		while (++y < map->size)
 		{
-			while (++x < size)
-				if (ft_valide_square(map, i, x, y))
+			while (++x < map->size)
+			{
+				condition = ft_valide_square(map, size, x, y);
+				if (condition)
 				{
-					affiche_square(map, i, x, y, c);
+					affiche_square(map, size, x, y);
 					return ;
 				}
+			}
 			x = -1;
 		}
 		y = -1;
-		i--;
+		size--;
 	}
 }
 
-t_map *ft_init_map(char **str, int size)
+t_map	*ft_init_map(char **str, int size, char c)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 	map->map = str;
 	map->size = size;
+	map->c = c;
 	return (map);
 }
 
 int	ft_valide_square(t_map *map, int size, int x, int y)
 {
-	char c;
-	int i;
-	int j;
+	char	c;
+	int		i;
+	int		j;
 
 	i = x;
 	j = y;
@@ -65,21 +67,19 @@ int	ft_valide_square(t_map *map, int size, int x, int y)
 	return (1);
 }
 
-void	affiche_square(t_map *map, int size, int x, int y, char c)
+void	affiche_square(t_map *map, int size, int x, int y)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	j = -1;
-
-	
 	while (++i < map->size + 1)
 	{
 		while (++j < map->size + 1)
 		{
 			if (j >= x && j < x + size && i >= y && i < y + size)
-				write(1, &c, 1);
+				write(1, &map->c, 1);
 			else
 				write(1, &map->map[i][j], 1);
 		}

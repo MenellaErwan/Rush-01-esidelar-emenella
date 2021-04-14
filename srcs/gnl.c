@@ -1,79 +1,77 @@
 #include "rush.h"
 #define BUFFER_SIZE 1
 
-int     ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-        if (c >= '0' && c <= '9')
-                return (1);
-        return (0);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }
 
-int ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
-    uint_fast32_t number;
-    uint_fast32_t index;
+	int	number;
+	int	index;
 
-    number = 0;
-    index = 0;
-    while (ft_isdigit(*(s + index)))
-        number = number * 10 + *s++ - '0';
-    return (number);
+	number = 0;
+	index = 0;
+	while (ft_isdigit(*(s + index)))
+		number = number * 10 + *s++ - '0';
+	return (number);
 }
 
-static int param(int convert)
+int	param(int convert)
 {
-    size_t			ret;
-    char	p;
-    char	save[32UL];
+	size_t	ret;
+	char	p;
+	char	save[32UL];
 
-    ret = 1;
-    p = 0;
-    while ((ret = read(0, save + p, 1)) > 0 && (*(save + p) != '\n'))
+	p = 0;
+	ret = read(0, save + p, 1);
+	while ((*(save + p) != '\n') && ret > 0)
+	{
 		++p;
+		ret = read(0, save + p, 1);
+	}
 	if (convert)
 		return (ft_atoi(save));
 	else
 		return (save[0]);
 }
 
-int ft_strlen(char *str)
+char	**get_map(int size)
 {
-    int i;
-    i = 0;
-    while(str[i])
-        i++;
-    return (i);
+	int		i;
+	int		ret;
+	char	**map;
+
+	i = -1;
+	ret = 1;
+	map = malloc(sizeof(char *) * size);
+	if (!map)
+		return (NULL);
+	while (++i < size && ret > 0)
+	{
+		map[i] = malloc(sizeof(char) * (size + 1));
+		if (!map[i])
+			return (NULL);
+		read(0, map[i], size + 1);
+	}
+	return (map);
 }
 
-char **get_map(int size)
+int	main(void)
 {
-    int i;
-    int ret;
-    char **map;
+	char	**str;
+	int		para;
+	int		chara;
+	t_map	*map;
 
-    i = -1;
-    ret = 1;
-    if(!(map = malloc(sizeof(char*) * (size))))
-        return (NULL);
-    while (++i < size && ret > 0)
-    {
-        if(!(map[i] = malloc(sizeof(char) * (size + 1))))
-            return (NULL);
-        read(0, map[i], size + 1);
-    }
-    return (map);
-}
-
-int main()
-{
-	char	**str = NULL;
-	int	    para;
-	int	    chara;
-
+	str = NULL;
 	para = param(1);
 	chara = param(0);
 	str = get_map(para);
-    write(1, "\n", 1);
-	ft_resolve(str, para, chara);
+	map = ft_init_map(str, para, chara);
+	ft_resolve(map, para);
 	free(str);
 }
