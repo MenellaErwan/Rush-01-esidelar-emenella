@@ -44,19 +44,19 @@ int	ft_valide_square(t_map *map, int size, int x, int y)
 {
 	char c;
 	int i;
+	int j;
 
 	i = x;
+	j = y;
 	c = map->map[y][x];
-	printf("depart %d\n", size);
 	if (x + size > map->size || y + size > map->size)
 		return (0);
-	while (y < size + y)
+	while (y < size + j)
 	{
-		while (x < size + x)
+		while (x < size + i)
 		{
 			if (c != map->map[y][x])
 				return (0);
-			printf("%c == %c et y %d x %d\n", c, map->map[y][x], y, x);
 			x++;
 		}
 		x = i;
