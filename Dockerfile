@@ -12,13 +12,7 @@ WORKDIR /tmp/
 
 COPY ./srcs/. ./srcs/.
 
-COPY ./includes/. ./includes/.
-
 COPY ./Makefile .
-
-COPY ./libft/ ./libft/.
-
-COPY ./tmp/. ./tmp/.
 
 RUN make re && make fclean && make
 
